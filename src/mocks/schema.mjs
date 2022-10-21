@@ -6,46 +6,19 @@ export default {
       editable: '*'
     }
   },
-  blocks: [
-    {
-      type: 'unknownBlock'
-    },
+  blocks: [ 
     {
       name: 'Создание заявки',
       type: 'offerCreateBlock',
-      open: ['CREATION', 'CREATED', 'ON_CHECK', 'REJECT', 'CONTINUE_QUESTIONNAIRE', 'CLIENT_VERIFICATION'],
+      open: ['CREATION', 'CREATED',  'REJECT', 'CONTINUE_QUESTIONNAIRE', 'CLIENT_VERIFICATION'],
       collapsed: true
-    },
-    {
-      type: 'otherBlock'
     }
   ],
-  documents: [
-    {
-      type: 'unknown',
-      block: 'unknownBlock',
-      name: 'Не распознано',
-      processor: 'ClassifierProcessor',
-      access: {
-        show: '*',
-        editable: '*'
-      }
-    },
-    {
-      type: 'passport',
-      block: 'offerCreateBlock',
-      name: 'Паспорт',
-      required: ['CREATION', 'CREATED', 'ON_CHECK', 'CONTINUE_QUESTIONNAIRE'],
-      processor: 'OfferFailureProcessor',
-      access: {
-        show: '*',
-        editable: ['CREATION', 'CREATED', 'CONTINUE_QUESTIONNAIRE']
-      }
-    },
-    {
+  documents: [      
+    { 
       type: 'buyerQuestionnaire',
       block: 'offerCreateBlock',
-      name: 'Анкета',
+      name: 'Добавить файлы',
       accept: [
         'image/*',
         'application/pdf',
@@ -63,16 +36,6 @@ export default {
         show: '*',
         editable: ['CREATION', 'CREATED', 'CONTINUE_QUESTIONNAIRE']
       }
-    },
-    {
-      block: 'otherBlock',
-      name: 'Прочее',
-      tooltip: 'Документы, которые распознались, но не могут быть загружены в необходимую вкладку',
-      type: 'otherDocuments',
-      access: {
-        show: '*',
-        editable: '*'
-      }
-    }
+    } 
   ]
 };

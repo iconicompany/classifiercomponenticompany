@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Dimmer, Grid, Loader, Message } from 'semantic-ui-react';
+import { Dimmer, Grid, Loader } from 'semantic-ui-react';
 import { snapCenterToCursor } from '@dnd-kit/modifiers';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import {
@@ -12,7 +12,8 @@ import {
 } from '@dnd-kit/core';
 
 import SortableGallery from './gallery/SortableGallery';
-import UploadDropzone from './UploadDropzone'; 
+import UploadDropzone from './UploadDropzone';
+import Menu from './menu/Menu';
 import { classifyDocument, deletePage, uploadPages, useDocuments, useTasks } from '../hooks';
 import { toast } from 'react-semantic-toasts';
 import { registerTwain } from '../utils/twain';
@@ -28,8 +29,10 @@ const Classifier = ({
   onDrag,
   name,
   showError,
-  schema, 
-  readonlyClassifier = null
+  schema,
+  hiddenTabs = [],
+  readonlyClassifier = null,
+  defaultTab = 'classifier'
 }) => {
   const [classifier, setClassifier] = useState(schema.classifier);
   const { tasks } = useTasks(uuid);
@@ -38,13 +41,13 @@ const Classifier = ({
   const [selectedTab, selectTab] = useState({});
   const [clonedItems, setClonedItems] = useState(null);
   const [draggableOrigin, setDraggableOrigin] = useState(null);
+  const [activeDraggable, setActiveDraggable] = useState(null);
   const [countStartedTasks, setCountStartedTasks] = useState(0);
   const [dragFrom, setDrugFrom] = useState();
   const [prev, setPrev] = useState(null);
   const [pageErrors, setPageErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  const [errorFile, setErrorFile] = useState(false);
-
+ 
   useEffect(() => {
     selectTab(getSelectedTab());
   }, []);
@@ -144,16 +147,24 @@ const Classifier = ({
 
     return Object.keys(documents).find((key) => documents[key].find((item) => item.path === id));
   };
- 
+
+  const onDragCancel = () => {
+    if (clonedItems) {
+      // Reset items to their original state in case items have been
+      // dragged across containrs
+      mutateDocuments(clonedItems, false);
+    }
+
+    setActiveDraggable(null);
+    setClonedItems(null);
+    setDraggableOrigin(null);
+  };
 
   const handleDocumentsDrop = async (acceptedFiles) => {
     if (!acceptedFiles.length) {
-      return setErrorFile(true);
-    } 
+      return showError('Файл выбранного типа не доступен для загрузки.');
+    }
 
-    setErrorFile(false);
-
-    console.log('acceptedFiles.length: '+acceptedFiles.length);
     if (selectedTab.type === 'classifier') {
       !countStartedTasks && setCountStartedTasks(-1);
       const availableClasses = documentsTabs.filter((tab) => !tab.readonly).map((tab) => tab.type);
@@ -364,36 +375,14 @@ const Classifier = ({
             marginRight: 'auto',
             minHeight: 235,
             width: '73.75%!important'
-          }}>
-          <Dimmer active={loading} inverted>
-            <Loader style={{ display: 'block' }} size="big">
-              Загрузка...
-            </Loader>
-          </Dimmer>
-          {!selectedTab.readonly && (
-            <UploadDropzone
-              onDrop={handleDocumentsDrop}
-              accept={selectedTab.accept}
-              fileType={selectedTab.fileType}
-            />
-          )} 
-          <Dimmer.Dimmable>
-            {!!countStartedTasks && selectedTab.type === 'classifier' && (
-              <Dimmer active inverted>
-                <Loader size="large" active>
-                  {!!countStartedTasks && 'Документы в обработке'}
-                </Loader>
-              </Dimmer>
-            )}
-            {errorFile && (
-              <Message negative style={{marginTop: '20px'}}>Файл выбранного типа не доступен для загрузки</Message>
-            )}
+          }}>                     
+          <Dimmer.Dimmable>            
             <SortableGallery
               pageErrors={pageErrors}
               tab={selectedTab}
               srcSet={selectedDocument}
               onRemove={handlePageDelete} 
-            /> 
+            />
           </Dimmer.Dimmable>
            
         </Grid.Column>
