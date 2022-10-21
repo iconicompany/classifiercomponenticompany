@@ -18,10 +18,11 @@ export default class GetDocuments {
           id: `${url}/${document.type}/${i + 1}?_nocache=${document.structure.lastModified}`,
           path: `${url}/${document.type}/${i + 1}?_nocache=${document.structure.lastModified}`,
           uuid: page.uuid,
+          name: page.originalName,
           type: mime.lookup(page.extension)
         };
       });
-
+      
       return {
         ...accumulator,
         [document.type]: links

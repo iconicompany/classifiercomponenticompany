@@ -20,9 +20,9 @@ export default class AddPages {
     const document = dossier.getDocument(name);
     files = Object.values(files);
     // если загружается не картинка или документ не является набором картинок, то все страницы документа затираются
-    if (!files[0].mimetype.includes('image/') || !document.isImages()) {
-      await document.clear();
-    }
+    //if (!files[0].mimetype.includes('image/') || !document.isImages()) {
+    //  await document.clear();
+    //}
     await document.addPages(files.map(file => new Page(file)));
   }
 }

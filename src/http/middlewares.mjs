@@ -15,7 +15,7 @@ export const uploadMiddleware = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
       const destination =
-        process.env.DOSSIER_DOCUMENT_PATH + '/dossier/' + req.params.uuid + '/pages';
+        process.env.DOSSIER_DOCUMENT_PATH + '/dossier/' + req.params.uuid + '/pages'; 
 
       if (!fs.existsSync(destination)) {
         fs.mkdirSync(destination, { recursive: true });
@@ -31,31 +31,8 @@ export const uploadMiddleware = multer({
 
 export const splitPdf = async (req, res, next) => {
   req.files = await req.files?.reduce(async (accumulator, file) => {
-    const files = await accumulator;
-    if (file.mimetype === 'application/pdf') {
-      const poppler = new Poppler(process.env.POPPLER_BIN_PATH);
-      const splitOutputPath = `${file.destination}/${file.filename.split('.')[0]}`;
-      fs.mkdirSync(splitOutputPath);
-      await poppler.pdfToCairo(file.path, `${splitOutputPath}/${file.originalname.split('.')[0]}`, {
-        jpegFile: true
-      });
-      let pages = fs.readdirSync(splitOutputPath);
-
-      pages = pages.map((page) => {
-        const filename = `${uuidv4()}.jpg`;
-        const path = `${file.destination}/${filename}`;
-        fs.renameSync(`${splitOutputPath}/${page}`, path);
-
-        return { path, filename, mimetype: 'image/jpeg' };
-      });
-
-      fs.unlinkSync(file.path);
-      fs.rmdirSync(splitOutputPath);
-
-      return [...files, ...pages];
-    } else {
-      return [...files, file];
-    }
+    const files = await accumulator;     
+    return [...files, file];    
   }, []);
   next();
 };

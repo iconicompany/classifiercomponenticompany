@@ -10,8 +10,7 @@ const Menu = ({ uuid, classifier, documents, blocks, selected, onDocumentSelect,
         const blockDocs = documents.filter((document) => document.block === block.type);
 
         return {
-          documents: blockDocs,
-          collapsed: block.collapsed,
+          documents: blockDocs, 
           name: block.name,
           type: block.type,
           open: block.open
@@ -19,42 +18,18 @@ const Menu = ({ uuid, classifier, documents, blocks, selected, onDocumentSelect,
       })
     );
   }, [blocks]);
-
   return (
-    <SemanticMenu fluid vertical stackable>
-      {!classifier.disabled && (
-        <>
-          <SemanticMenu.Item
-            disabled={classifier.readonly}
-            name="classifier"
-            className="classifier-tab"
-            active={selected === 'classifier'}
-            onClick={onDocumentSelect}>
-            <div style={{ marginTop: -8 }}>
-              <span style={{ padding: 10 }}>Автомат</span>
-              <Checkbox
-                style={{ top: 5 }}
-                className="native-checkbox"
-                checked={selected === 'classifier'}
-                toggle
-              />
-            </div>
-          </SemanticMenu.Item>
-          <Divider style={{ margin: 0 }} />
-        </>
-      )}
+    <SemanticMenu fluid vertical stackable>       
       {docBlocks.map((block) => {
         return (
           <MenuBlock
             uuid={uuid}
-            key={block.type}
-            hiddenTabs={hiddenTabs}
-            selected={selected}
+            key="offerCreateBlock"
             onDocumentSelect={onDocumentSelect}
             block={block}
           />
         );
-      })}
+      })} 
     </SemanticMenu>
   );
 };

@@ -5,9 +5,10 @@ export function Remove(props) {
       style={{
         '--fill': 'rgba(255, 70, 70, 0.95)',
         '--background': 'rgba(255, 70, 70, 0.1)',
-        position: 'absolute',
-        top: '10px',
+        position: 'absolute', 
         right: '10px',
+        padding: '0px 5px',
+        cursor: 'pointer',
         zIndex: 200
       }}>
       <svg width="8" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">

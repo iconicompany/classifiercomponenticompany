@@ -35,7 +35,7 @@ export default class ClassifierSchemaBuilder extends SchemaBuilder {
   getTabsProperties(access) {
     return this.schema.documents
       .filter((documentSchema) => this.processors[documentSchema.type].isDisplay())
-      .map((documentSchema) => ({
+      .map((documentSchema) => ({  
         name: documentSchema.name,
         type: documentSchema.type,
         accept: documentSchema.accept,
