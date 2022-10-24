@@ -125,9 +125,13 @@ const Classifier = ({
     const interval = setInterval(() => setTwainHandler() && clearInterval(interval), 1000);
   }, []);
 
-  useEffect(() => setTwainHandler(), [selectedTab]);
+  useEffect(() => {
+    setTwainHandler(), [selectedTab]
+  });
 
-  useEffect(() => selectTab(getSelectedTab()), [uuid]);
+  useEffect(() => {
+    selectTab(getSelectedTab()), [uuid]
+  });
 
   const setTwainHandler = () => {
     return registerTwain((file) => file && handleDocumentsDrop([file]), selectedTab.type);
@@ -151,9 +155,8 @@ const Classifier = ({
       return setErrorFile(true);
     } 
 
-    setErrorFile(false);
-
-    console.log('acceptedFiles.length: '+acceptedFiles.length);
+    setErrorFile(false); 
+    
     if (selectedTab.type === 'classifier') {
       !countStartedTasks && setCountStartedTasks(-1);
       const availableClasses = documentsTabs.filter((tab) => !tab.readonly).map((tab) => tab.type);
@@ -351,6 +354,7 @@ const Classifier = ({
   };
 
   return (
+    <>
     <Grid columns={2} centered className="dossier classifier">
       <DndContext
         sensors={sensors}
@@ -399,6 +403,7 @@ const Classifier = ({
         </Grid.Column>
       </DndContext>
     </Grid>
+    </>
   );
 };
 

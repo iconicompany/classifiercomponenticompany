@@ -128,9 +128,13 @@ const Classifier = ({
     const interval = setInterval(() => setTwainHandler() && clearInterval(interval), 1000);
   }, []);
 
-  useEffect(() => setTwainHandler(), [selectedTab]);
+  useEffect(() => {
+    setTwainHandler(), [selectedTab]
+  });
 
-  useEffect(() => selectTab(getSelectedTab()), [uuid]);
+  useEffect(() => {
+    selectTab(getSelectedTab()), [uuid]
+  });
 
   const setTwainHandler = () => {
     return registerTwain((file) => file && handleDocumentsDrop([file]), selectedTab.type);

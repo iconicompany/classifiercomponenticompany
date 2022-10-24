@@ -4,7 +4,7 @@ import GetPage from './usecases/GetPage.mjs';
 import DeletePage from './usecases/DeletePage.mjs';
 import CorrectionDocument from './usecases/CorrectPages.mjs';
 import nc from 'next-connect';
-import { compressImages, uploadMiddleware, splitPdf } from '../../http/middlewares.mjs';
+import { uploadMiddleware, splitPdf } from '../../http/middlewares.mjs';
 import bodyParser from 'body-parser';
 import GetDocuments from './usecases/GetDocuments.mjs';
 import CheckClassifications from './usecases/CheckClassifications.mjs';
