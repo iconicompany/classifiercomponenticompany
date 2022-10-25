@@ -33,9 +33,19 @@ const GalleryItem = React.memo(
         onRemove(src);
       }; 
  
+      const downloadFile = () => {  
+        const link = document.createElement('a');  
+        link.href = src.path;
+        link.download = src.name; 
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link); 
+      }
+
+
       const isName = () => {
         return src.name;
-      };
+      }; 
 
       return (
         <>
@@ -69,9 +79,7 @@ const GalleryItem = React.memo(
                   </Popup>
                 )}
                 {!disabled && <Remove onClick={handleClick} />}
-                <div {...attributes} className="cursor-default">
-                  {isName()}
-                </div>
+                <div {...attributes} className="cursor-default" onClick={downloadFile}>{isName()}</div>
               </Card.Content>
             </Card>
           </div>  
