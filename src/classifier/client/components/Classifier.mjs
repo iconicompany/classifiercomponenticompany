@@ -359,16 +359,7 @@ const Classifier = ({
       <DndContext
         sensors={sensors}
         modifiers={[snapCenterToCursor]} >         
-        <Grid.Column
-          className="dossier__wrap"
-          width={11}
-          textAlign="center"
-          style={{
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            minHeight: 235,
-            width: '73.75%!important'
-          }}>
+        <Grid.Column className="dossier__wrap">
           <Dimmer active={loading} inverted>
             <Loader style={{ display: 'block' }} size="big">
               Загрузка...
