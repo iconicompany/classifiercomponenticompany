@@ -46,6 +46,9 @@ const GalleryItem = React.memo(
       const isName = () => {
         return src.name;
       }; 
+      const isLink = () => {
+        return src.path;
+      }; 
 
       return (
         <>
@@ -79,7 +82,11 @@ const GalleryItem = React.memo(
                   </Popup>
                 )}
                 {!disabled && <Remove onClick={handleClick} />}
-                <div {...attributes} className="cursor-default" onClick={downloadFile}>{isName()}</div>
+                <div {...attributes} className="cursor-default">
+                    <a href={isLink()} target="_blank">
+                      {isName()}
+                    </a>
+                </div>
               </Card.Content>
             </Card>
           </div>  
