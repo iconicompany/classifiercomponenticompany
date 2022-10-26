@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Card, Icon, Placeholder, Popup } from 'semantic-ui-react';
 import { Remove } from '../SortableGalleryItem/Remove';
-import { div } from 'carbone/formatters/number';
+import { div } from 'carbone/formatters/number';  
 
 const GalleryItem = React.memo(
   React.forwardRef(
@@ -32,24 +32,16 @@ const GalleryItem = React.memo(
         event.preventDefault();
         onRemove(src);
       }; 
- 
-      const downloadFile = () => {  
-        const link = document.createElement('a');  
-        link.href = src.path;
-        link.download = src.name; 
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link); 
-      }
-
+  
 
       const isName = () => {
         return src.name;
       }; 
       const isLink = () => {
         return src.path;
-      }; 
-
+      };
+  
+ 
       return (
         <>
           <style jsx global>
@@ -82,8 +74,8 @@ const GalleryItem = React.memo(
                   </Popup>
                 )}
                 {!disabled && <Remove onClick={handleClick} />}
-                <div {...attributes} className="cursor-default">
-                    <a href={isLink()} target="_blank">
+                <div {...attributes} className="cursor-default">                      
+                    <a href={isLink()} target="_blank" title="Скачать" download={isName()}>
                       {isName()}
                     </a>
                 </div>

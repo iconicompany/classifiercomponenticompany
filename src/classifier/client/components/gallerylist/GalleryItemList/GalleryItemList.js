@@ -13,17 +13,6 @@ const GalleryItem = React.memo(
       ref
     ) => {
       
- 
-      const downloadFile = () => {  
-        const link = document.createElement('a');  
-        link.href = src.path;
-        link.download = src.name; 
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link); 
-      }
-
-
       const isName = () => {
         return src.name;
       }; 
@@ -58,7 +47,7 @@ const GalleryItem = React.memo(
                 )}
                
                 <div {...attributes} className="cursor-default">
-                    <a href={isLink()} target="_blank">
+                    <a href={isLink()} target="_blank" title="Скачать" download={isName()}>
                       {isName()}
                     </a>
                 </div>
