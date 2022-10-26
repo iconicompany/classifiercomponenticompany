@@ -11,7 +11,7 @@ import {
   useSensors
 } from '@dnd-kit/core';
 
-import SortableGallery from './gallery/SortableGallery';
+import SortableGallery from './gallerylist/SortableGalleryList';
 import UploadDropzone from './UploadDropzone';
 import Menu from './menu/Menu';
 import { classifyDocument, deletePage, uploadPages, useDocuments, useTasks } from '../hooks';
