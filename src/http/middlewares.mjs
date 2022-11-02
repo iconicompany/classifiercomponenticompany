@@ -23,6 +23,7 @@ export const uploadMiddleware = multer({
       return cb(null, destination);
     },
     filename: (req, file, cb) => {
+      file.originalname = Buffer.from(file.originalname, 'latin1').toString('utf8')
       return cb(null, uuidv4() + '.' + file.originalname.split('.').pop());
     }
   })
