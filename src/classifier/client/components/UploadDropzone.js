@@ -1,10 +1,11 @@
 import { useDropzone } from 'react-dropzone';
-import { Segment } from 'semantic-ui-react';
+
+import { Card } from 'antd';
 
 const UploadDropzone = ({
   onDrop,
   fileType,
-  accept = [ 
+  accept = [
     'image/*',
     'application/pdf',
     'application/vnd.ms-excel',
@@ -24,22 +25,17 @@ const UploadDropzone = ({
   });
 
   return (
-    <Segment.Group className="dossier__uploads" horizontal style={{ cursor: 'pointer' }}>
-      <Segment
-        textAlign="center"
-        style={{ padding: 10 }}
+    <div className="dossier__uploads" style={{ cursor: 'pointer' }}>
+      <Card
         {...dropzone.getRootProps({
           className: 'updateDropzone'
         })}>
-        <div>
-          <span>
-            {fileType?.includes('image/') || !fileType ? 'Загрузить файлы' : 'Заменить файл'}
-          </span>
-        </div>
-        <div>Нажмите или перетащите</div>
+        <p>{fileType?.includes('image/') || !fileType ? 'Загрузить файлы' : 'Заменить файл'}</p>
+        <p>Нажмите или перетащите</p>
+
         <input {...dropzone.getInputProps()} />
-      </Segment>
-    </Segment.Group>
+      </Card>
+    </div>
   );
 };
 
