@@ -1,8 +1,10 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import GalleryItem from './GalleryItem/GalleryItem';
 
-const SortableGalleryItem = ({ src, onRemove, onClick, disabled, errors }) => {
+import GalleryItem from './GalleryItem';
+import GalleryListItem from '../gallerylist/GalleryListItem';
+
+const SortableGalleryItem = ({ src, onRemove, onClick, disabled, errors, hasListOnly }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: src.id,
     disabled: !src.type.includes('image/') || disabled
@@ -16,9 +18,18 @@ const SortableGalleryItem = ({ src, onRemove, onClick, disabled, errors }) => {
     zIndex: 100
   };
 
-  return (
+  return hasListOnly ? (
+    <GalleryListItem
+      src={src}
+      ref={setNodeRef}
+      style={style}
+      attributes={attributes}
+      listeners={listeners}
+      errors={errors}
+    />
+  ) : (
     <GalleryItem
-      src={src} 
+      src={src}
       ref={setNodeRef}
       style={style}
       disabled={disabled}
