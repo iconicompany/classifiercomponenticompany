@@ -10,3 +10,31 @@
   padding: 20px;
   height: auto;
 }
+
+.updateDropzone.ant-card {
+  margin-bottom: 10px;
+
+  font-weight: bold;
+
+  box-shadow: rgba(0, 0, 0, 0.16) 0 3px 6px, rgba(0, 0, 0, 0.23) 0 3px 6px;
+  border-radius: 15px !important;
+}
+
+.updateDropzone.ant-card p {
+  margin: 0;
+  text-align: center;
+}
+
+.alert-message {
+  font-weight: bold;
+  text-align: center;
+}
+
+.gallery-list-item,
+.gallery-item.ant-card .ant-card-body {
+  padding: 5px;
+}
+
+.gallery-item.ant-card:hover {
+  background-color: rgba(157, 175, 163, 0.3);
+}
