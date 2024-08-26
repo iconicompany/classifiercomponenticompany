@@ -1,5 +1,5 @@
 import Response from './Response.mjs';
-import errormailer from '@ilb/mailer/src/errormailer';
+import errormailer from '@ilb/mailer/src/errormailer.js';
 
 const { notify } = errormailer;
 
